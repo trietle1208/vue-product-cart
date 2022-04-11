@@ -1,0 +1,12 @@
+{
+  "message": "hello i18n !!",
+  "sidebar" : {
+    "dashboard" : "Dashboard",
+    "product": {
+      "create": "Add Product",
+      "list": "List Product"
+    },
+    "cart": "Cart",
+    "logout": "Logout"
+  }
+}

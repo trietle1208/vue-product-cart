@@ -1,11 +1,20 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </nav>
+  </nav> -->
+  <!-- <Header /> -->
   <router-view />
 </template>
-
+<script>
+import Header from "./components/Header.vue";
+export default {
+  name: "app",
+  components: {
+    Header,
+  },
+};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -27,4 +36,14 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
+a.router-link-exact-active {
+  text-decoration: none;
+}
+
+.p-sidebar-content span{
+  text-decoration: none !important;
+}
+
+
 </style>
