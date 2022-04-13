@@ -9,6 +9,9 @@ import ProgressSpinner from 'primevue/progressspinner';
 import Sidebar from 'primevue/sidebar';
 import Card from 'primevue/card';
 import Rating from 'primevue/rating';
+import Dialog from 'primevue/dialog';
+import Textarea from 'primevue/textarea';
+import Avatar from 'primevue/avatar';
 
 import router from "./router";
 import store from "./store";
@@ -38,6 +41,10 @@ app.component('ProgressSpinner',ProgressSpinner)
 app.component('Sidebar',Sidebar)
 app.component('Card',Card)
 app.component('Rating',Rating)
+app.component('Dialog',Dialog)
+app.component('Textarea',Textarea)
+app.component('Avatar',Avatar)
+
 app.use(PrimeVue)
 
 app.use(VueSweetalert2);

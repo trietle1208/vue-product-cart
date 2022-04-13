@@ -2,16 +2,13 @@
     <!-- This is Dashboard -->
   <Header />
   <router-view></router-view>
+  <Footer></Footer>
 </template>
 
-<script>
+<script setup>
 import Header from "./Header.vue";
-export default {
-  name: "dashboard",
-  components: {
-    Header,
-  },
-};
+import Footer from "./Footer.vue";
+
 </script>
 
 <style></style>

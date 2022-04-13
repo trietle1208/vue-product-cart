@@ -30,14 +30,13 @@
     </div>
     <ProgressSpinner v-if="isLoading" style="width:30px;height:30px" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"/>
   </div>
-  <Footer />
 </template>
 
 <script setup> 
 import { useI18n } from "vue-i18n";
 import ProductCart from "./carts/ProductCart.vue";
 import Header from "../components/Header.vue";
-import Footer from "../components/Footer.vue";
+
 import { useStore } from "vuex"
 import { computed } from "vue"
 

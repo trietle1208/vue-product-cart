@@ -15,10 +15,13 @@ export default createStore({
     isLoading: false,
     product: {
       data: {},
+      sum_rating: null,
+      sum_review: null,
       image: null,
     },
     cartItem: null,
     cart:[],
+    ratings: [],
   },
   getters,
   mutations,

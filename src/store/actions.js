@@ -1,4 +1,5 @@
 import axiosClient from "@/axios"
+import store from "."
 export default {
     getProducts({commit}) {
         commit('SET_STATE_LOADING', true)
@@ -6,6 +7,21 @@ export default {
             commit('SET_PRODUCT', res.data.data)
             commit('SET_STATE_LOADING', false)
         })
+    },
+    async getReviews({commit}, id) {
+        let respone = await axiosClient.get(`/product/ratings/${id}`).then((res) => {
+            commit('SET_REVIEW',res.data.data)
+        })
+    },
+    async getInfoUserReview({commit}, id) {
+        let respone = await axiosClient.get(`/product/userInfo/${id}`)
+        return respone
+    },
+    addReview({commit},{rating,comment,productId}) {
+        let response = axiosClient.post("/product/ratings", {rating,comment,productId}).then((res) => {
+            store.dispatch('getReviews',productId);
+        })
+        return response
     },
     addToCart({commit}, {cartItem,qty}) {
         commit('ADD_TO_CART', {cartItem,qty});
@@ -39,10 +55,13 @@ export default {
         const respone = await axiosClient.delete(`/product/products/${id}`)
         return respone
     },
-    getProduct({commit},id) {
-        axiosClient.get(`product/products/${id}`).then((res) => {
+    async getProduct({commit},id) {
+        commit('SET_STATE_LOADING',true);
+        let response  = await axiosClient.get(`product/products/${id}`).then((res) => {
             commit('GET_PRODUCT',res.data);
+            commit('SET_STATE_LOADING',false);
         })
+        return response
     },
     register({commit}, user) {
     return axiosClient.post('/register',user)

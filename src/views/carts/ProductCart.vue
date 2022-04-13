@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-12 col-md-6 col-lg-3">
+  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
     <Card>
       <template #header>
         <img :src="product.image" alt="smartphone image" />
@@ -14,7 +14,9 @@
         <Rating v-model="val" :cancel="false" :readonly="true" />
       </template>
       <template #footer>
-        <Button icon="pi pi-eye" label="Detail" class="btn-detail" />
+        <router-link :to="{name: 'product.detail', params: { id: product.id } }">
+          <Button icon="pi pi-eye" label="Detail" class="btn-detail" />
+        </router-link>
         <Button
           icon="pi pi-shopping-cart"
           class="btn-add-cart"
@@ -47,9 +49,10 @@ function addCart() {
 }
 </script>
 
-<style>
+<style scoped>
 .p-card {
   margin-bottom: 12px;
+  height: 640px;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -60,9 +63,12 @@ function addCart() {
   width: 60%;
   height: 200px;
   object-fit: cover;
+  text-align: center;
+  position: relative;
 }
 
 .p-card-header img:hover {
+  /* position: relative; */
   width: 80%;
   padding: 4px;
   height: 220px;
@@ -70,6 +76,7 @@ function addCart() {
 }
 
 .p-card-title {
+  text-align: center;
   color: crimson;
 }
 
@@ -82,6 +89,7 @@ function addCart() {
 }
 
 .content--price {
+  text-align: center;
   font-weight: 700;
   font-size: 28px;
   color: #445dde;
@@ -89,10 +97,15 @@ function addCart() {
 
 .content--decs {
   font-weight: 500;
+  overflow: auto;
+  text-align: left;
+  height: 150px;
   color: rgb(211, 208, 208);
+  cursor: pointer;
 }
 
 .p-rating {
+  text-align: center;
   margin-top: 8px;
 }
 
@@ -108,11 +121,33 @@ function addCart() {
 .btn-add-cart {
   background-color: #e76134;
   border-color: #e76134;
+  opacity: 0.9;
 }
 
-/* .btn-add-cart:hover {
+.btn-add-cart:hover {
   cursor: pointer;
-  background-color: #7fdd32 !important;
-  border-color: #7fdd32 !important;
-} */
+  background-color: #e76134 !important;
+  border-color: #e76134 !important;
+  opacity: 1;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0.1px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 </style>
