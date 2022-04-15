@@ -4,7 +4,9 @@
       "dashboard" : "Trang chủ",
       "product": {
         "create": "Thêm sản phẩm",
-        "list": "Danh sách sản phẩm"
+        "list": "Danh sách sản phẩm",
+        "detail": "Chi tiết",
+        "addCart": "Thêm giỏ hàng"
       },
       "cart": "Giỏ hàng",
       "logout": "Đăng xuất"

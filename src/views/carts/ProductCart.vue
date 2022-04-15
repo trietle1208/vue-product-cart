@@ -11,16 +11,16 @@
         <div class="content--decs">{{ product.description }}</div>
         <br />
         <div class="content--price">${{ product.price }}</div>
-        <Rating v-model="val" :cancel="false" :readonly="true" />
+        <Rating v-model="rating" :cancel="false" :readonly="true" />
       </template>
       <template #footer>
         <router-link :to="{name: 'product.detail', params: { id: product.id } }">
-          <Button icon="pi pi-eye" label="Detail" class="btn-detail" />
+          <Button icon="pi pi-eye" :label="t('sidebar.product.detail')" class="btn-detail" />
         </router-link>
         <Button
           icon="pi pi-shopping-cart"
           class="btn-add-cart"
-          label="Add to cart"
+          :label="t('sidebar.product.addCart')"
           @click="addCart()"
         />
       </template>
@@ -30,12 +30,21 @@
 
 <script setup>
 import { useStore } from "vuex";
+import { useI18n } from "vue-i18n";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+const store = useStore()
+const { t } = useI18n()
+
 const { product } = defineProps({
   product: Object,
-});
-const val = 2;
-const store = useStore();
+})
+
+let rating = (product.review_sum_rating/product.review_count).toFixed();
+if(rating === 'NaN') {
+  rating = 0
+}
+
 function addCart() {
   store.dispatch("addToCart", { cartItem: product, qty: 1 }).then(() => {
     Swal.fire({

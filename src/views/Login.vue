@@ -21,7 +21,7 @@
             v-model="user.email"
             :class="{ 'p-invalid': errors.email }"
           />
-          <small v-if="errors.email" class="p-error">{{ errors.email.toString() }}</small>
+            
 
           <label for="password1" class="block text-900 font-medium mb-2">Password</label>
           <InputText

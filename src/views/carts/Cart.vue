@@ -1,97 +1,61 @@
 <template>
   <div class="container">
-    <div class="grid grid-nogutter surface-section text-800">
-        <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center">
-          <section>
-            <span class="block text-6xl font-bold mb-1">Create the screens your</span>
-            <div class="text-6xl text-primary font-bold mb-3">
-              your visitors deserve to see
-            </div>
-            <p class="mt-0 mb-4 text-700 line-height-3">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <Button label="Learn More" type="button" class="mr-3 p-button-raised"></Button>
-            <Button label="Live Demo" type="button" class="p-button-outlined"></Button>
-          </section>
+    <div class="cart">
+      <div class="cart__header">
+        <h3>Your cart total is $82.00</h3>
+        <p>FREE SHIPPING AND RETURN</p>
+        <Button label="Checkout" class="p-button-success" @click="onToPageCheckout" />
+      </div>
+      <hr />
+      <div class="cart__content">
+        <div class="cart_content--row" v-for="item in cart" :key="item.cartItem.id">
+          <div class="image">
+            <img :src="item.cartItem.image" alt="" style="height: 160px; width: 160px" />
+          </div>
+          <div class="title">
+            {{ item.cartItem.name }}
+          </div>
+          <div class="qty">
+            <InputNumber
+              id="minmax-buttons"
+              v-model="item.qty"
+              mode="decimal"
+              showButtons
+              :min="1"
+              :max="100"
+            />
+          </div>
+          <div class="price">
+            ${{ item.cartItem.price }}
+            <Button
+              label="Remove"
+              icon="pi pi-trash"
+              class="p-button-sm p-button-danger"
+              @click="DeleteItemCart(item.cartItem)"
+            />
+          </div>
         </div>
-        <div class="col-12 md:col-6 overflow-hidden">
-          <img
-            src="https://s3.amazonaws.com/fullstackfeed/images/vuejs-4.jpg"
-            alt="Image"
-            class="md:ml-auto block md:h-full"
-            style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)"
-          />
+        <hr />
+      </div>
+      <div class="cart__footer">
+        <div class="subtotal">
+          <p>Subtotal</p>
+          <p>${{ getTotalCart }}</p>
         </div>
-    </div>
-    <div id="cart_container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Image</th>
-            <th scope="col">Price</th>
-            <th scope="col">Desc</th>
-            <th scope="col">Qty</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in cart" :key="item.cartItem.id">
-            <th scope="row">1</th>
-            <td><b>{{ item.cartItem.name }}</b></td>
-            <td>
-              <img
-                :src="item.cartItem.image"
-                alt=""
-                style="height: 160px; width: 120px"
-              />
-            </td>
-            <td>${{ item.cartItem.price }}&nbsp;<i class="fa-solid fa-coins"></i></td>
-            <td>{{ item.cartItem.description }}</td>
-            <td>
-              <button
-                class="btn btn-sm btn-primary"
-                @click="decrementsCartItem(item.cartItem.id)"
-              >
-                -
-              </button>
-              {{ item.qty }}
-              <button
-                class="btn btn-sm btn-primary"
-                @click="incrementsCartItem(item.cartItem.id)"
-              >
-                +
-              </button>
-            </td>
-            <td>
-              <button class="btn btn-danger" @click="DeleteItemCart(item.cartItem)">
-                <i class="fa-solid fa-trash-can"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="cart_bottom">
-      <div class="row">
-        <div class="total col-6">
-          <h5>CART TOTAL</h5>
-          <div class="total_item">
-            <h6>Subtoal</h6>
-            <p class="price_subtotal">${{ getTotalCart }}&nbsp;<i class="fa-solid fa-coins"></i></p>
-          </div>
-          <div class="total_item">
-            <h6>Count Item</h6>
-            <p class="price_subtotal">{{ cartItemCount }}</p>
-          </div>
-          <hr />
-          <div class="total_item">
-            <h6>Total</h6>
-            <p class="price_total">${{ getTotalCart }}&nbsp;<i class="fa-solid fa-coins"></i></p>
-          </div>
-          <button>CHECKOUT</button>
+        <hr />
+        <div class="shipping">
+          <p>Shipping</p>
+          <p>0.0</p>
+        </div>
+        <hr />
+        <div class="vat">
+          <p>Vat</p>
+          <p>0.0</p>
+        </div>
+        <hr />
+        <div class="total">
+          <p>Total</p>
+          <p>${{ getTotalCart }}</p>
         </div>
       </div>
     </div>
@@ -99,112 +63,131 @@
 </template>
 
 <script setup>
-import { useStore } from "vuex"
-import { computed } from "vue"
-const store = useStore()
+import { useStore } from "vuex";
+import { computed } from "vue";
+const store = useStore();
 
-const cart = computed(() => store.state.cart)
-const cartItemCount = computed(() => store.getters.cartItemCount)
-const getTotalCart = computed(() => store.getters.getTotalCart)
+const cart = computed(() => store.state.cart);
+const cartItemCount = computed(() => store.getters.cartItemCount);
+const getTotalCart = computed(() => store.getters.getTotalCart);
 
-function incrementsCartItem(id) {
-  store.dispatch('incrementsCartItem', id)
-}
+// function incrementsCartItem(id) {
+//   store.dispatch('incrementsCartItem', id)
+// }
 
-function decrementsCartItem(id) {
-  store.dispatch('decrementsCartItem', id)
-}
+// function decrementsCartItem(id) {
+//   store.dispatch('decrementsCartItem', id)
+// }
 
 function DeleteItemCart(id) {
-  store.dispatch('onDeleteItemCart', id)
+  store.dispatch("onDeleteItemCart", id);
+}
+
+function onToPageCheckout() {
+  alert("comming soon ....");
 }
 </script>
 
-<style>
-#cart_container {
-  border-collapse: collapse;
-  table-layout: fixed;
-  margin-top: 100px;
+<style scoped>
+.cart {
+  margin: 40px 0;
+  padding: 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-#cart_container table thead {
-  font-weight: 700;
+.cart__header h3 {
+  font-size: 40px;
+  font-weight: 600;
 }
 
-#cart_container table thead th {
-  background-color: #fd8c66;
-  color: #fff;
-  border: none;
-  padding: 6px 0;
+.cart__header p {
+  color: rgb(221, 115, 54);
+  opacity: 0.9;
 }
 
-#cart_bottom .coupon {
-}
-
-#cart_bottom .coupon h5 {
-  background-color: #fd8c66;
-  color: #fff;
-  padding: 6px 6px;
-  font-weight: 700;
-}
-
-#cart_bottom .coupon p,
-#cart_bottom .coupon input {
-  padding: 0 12px;
-}
-
-#cart_bottom .coupon input {
-  height: 40px;
-}
-
-#cart_bottom .coupon button {
-  height: 40px;
-  margin-left: 5px;
-  background: #fd8c66;
-  color: #fff;
-  border: none;
-}
-
-#cart_bottom .total {
-}
-
-#cart_bottom .total h5 {
-  border: none;
-  background-color: #fd8c66;
-  color: #fff;
-  padding: 6px 12px;
-  font-weight: 700;
-}
-
-#cart_bottom .total .total_item {
+.cart_content--row {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 24px;
+}
+.image {
+  flex-basis: 20%;
+  object-fit: cover;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
+  border-radius: 50%;
+}
+.title {
+  flex-basis: 40%;
+  text-align: left;
+  font-size: 24px;
+  font-weight: 600;
+  color: crimson;
+}
+.qty {
+  flex-basis: 20%;
 }
 
-#cart_bottom .total .total_item h6 {
+.price {
+  flex-basis: 20%;
+  font-size: 24px;
+}
+.price .p-button {
+  width: 45%;
+}
+
+.cart__footer {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  width: 40%;
+  /* float: right; */
+}
+
+.subtotal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px 24px;
+}
+
+.subtotal p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.shipping {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px 24px;
+}
+
+.shipping p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.vat {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px 24px;
+}
+
+.vat p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px 24px;
+}
+
+.total p {
+  font-size: 24px;
   font-weight: 700;
-}
-
-#cart_bottom .total button {
-  height: 40px;
-  margin-bottom: 5px;
-  background: #fd8c66;
-  color: #fff;
-  border: none;
-}
-
-.fa-coins {
-  color: rgb(243, 243, 72);
-  text-shadow: 2px 2px 4px #000000;
-}
-
-.price_subtotal {
-  font-weight: bold;
-  color: rgb(113, 113, 249)
-}
-
-.price_total {
-  font-weight: bold;
-  color: rgb(215, 59, 83)
 }
 </style>

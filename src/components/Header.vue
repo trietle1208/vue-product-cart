@@ -1,7 +1,7 @@
 <template>
-  <!-- <Sidebar v-model:visible="visibleLeft">
+  <Sidebar v-model:visible="visibleLeft">
     <router-link :to="{ name: 'Dashboard' }">
-      <Button :label="t('message')" icon="pi pi-palette" class="w-full" />
+      <Button :label="t('sidebar.dashboard')" icon="pi pi-palette" class="w-full" />
     </router-link>
     <hr />
     <router-link :to="{ name: 'product.create' }">
@@ -32,7 +32,7 @@
       icon="pi pi-user"
       class="w-full p-button-danger"
     />
-  </Sidebar> -->
+  </Sidebar>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <Button icon="pi pi-arrow-right" @click="toggleSidebar" />
@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-// import { useI18n } from "vue-i18n";
+import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
@@ -50,7 +50,7 @@ const visibleLeft = ref(false);
 
 const store = useStore()
 const router = useRouter()
-// const { t } = useI18n()
+const { t } = useI18n()
 
 const cartItemCount = computed(() => store.getters.cartItemCount)
 function toggleSidebar() {

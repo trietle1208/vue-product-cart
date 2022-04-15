@@ -10,7 +10,7 @@
       <span>{{ review.comment }}</span>
     </template>
     <template #footer>
-      <Button label="Reply" icon="pi pi-comments" class="p-button-sm"  />
+      <!-- <Button label="Reply" icon="pi pi-comments" class="p-button-sm"  /> -->
     </template>
   </Card>
   <br />
@@ -37,9 +37,11 @@ store.dispatch("getInfoUserReview", review.user_id).then((res) => {
 <style scoped>
 .p-card {
   width: 50%;
+  height: 50%;
   text-align: left;
   box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 12px;
+  /* max-height: 150px; */
 }
 .p-avatar {
   position: absolute;
@@ -56,6 +58,7 @@ store.dispatch("getInfoUserReview", review.user_id).then((res) => {
 .p-rating {
   margin-left: 92px;
 }
+
 
 .p-card-content span {
   margin-left: 92px;

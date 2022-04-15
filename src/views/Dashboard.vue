@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="grid grid-nogutter surface-section text-800">
+    <!-- <div class="grid grid-nogutter surface-section text-800">
         <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center">
           <section>
             <span class="block text-6xl font-bold mb-1">Create the screens your</span>
@@ -23,7 +23,7 @@
             style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)"
           />
         </div>
-    </div>
+    </div> -->
     <hr />
     <div class="row">
       <ProductCart v-for="(product, index) in products" :key="index" :product="product" />

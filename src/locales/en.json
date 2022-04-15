@@ -4,7 +4,9 @@
     "dashboard" : "Dashboard",
     "product": {
       "create": "Add Product",
-      "list": "List Product"
+      "list": "List Product",
+      "detail": "Detail",
+      "addCart": "Add to cart"
     },
     "cart": "Cart",
     "logout": "Logout"

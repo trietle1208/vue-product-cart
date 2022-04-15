@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3 class="p-3 mt-4 mb-4 bg-primary text-white rounded-pill title">Add New Product</h3>
+    <h3 class="p-3 mt-4 mb-4 text-white title">Add New Product</h3>
     <div class="form">
       <form @submit.prevent="saveProduct()" enctype="multipart/form-data">
         <div class="row">
@@ -51,7 +51,6 @@
               alt=""
               style="width: 300px; height: 250px; object-fit: cover"
             />
-            <!-- <div class="invalid-feedback" v-if="errors.price">{{ errors.price }}</div> -->
           </div>
         </div>
         <div class="row">
@@ -71,10 +70,10 @@
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-success" v-if="product.id">
+        <button type="submit" class="btn" v-if="product.id">
           Save for Edit
         </button>
-        <button type="submit" class="btn btn-primary" v-else>Save for Create</button>
+        <button type="submit" class="btn" v-else>Save for Create</button>
       </form>
     </div>
   </div>
@@ -144,22 +143,30 @@ function saveProduct() {
 .row {
   margin-bottom: 20px;
 }
+.title {
+  background: var(--surface-900); 
+}
 
 .form {
-  border: 4px solid #ced4da;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 24px;
 }
 
-.form form {
-  margin: 20px;
-}
+
 h3 { 
   text-shadow: 2px 2px 12px #000000;
 }
 .form label {
-  background-color: #0d6efd;
+  background: var(--surface-900);
   padding: 10px;
   color: #fff;
   border-radius: 12px;
-  text-shadow: 2px 2px 8px #000000;
+  float: left;
+  margin-left: 56px;
+}
+
+.btn {
+  background: var(--surface-900);
+  color: #fff;
 }
 </style>

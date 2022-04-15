@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3 class="p-3 mt-4 mb-4 bg-primary text-white rounded-pill">List Product</h3>
+    <h3 class="p-3 mt-4 mb-4 text-white title">List Product</h3>
     <table class="table">
       <thead>
         <tr>
@@ -23,8 +23,8 @@
               style="width: 150px; height: 100px; object-fit: cover"
             />
           </td>
-          <td>${{ product.price }}&nbsp;<i class="fa-solid fa-coins"></i></td>
-          <td>{{ product.description }}</td>
+          <td>${{ product.price }}</td>
+          <td class="table__desc">{{ product.description }}</td>
           <td>
             <router-link :to="{ name: 'product.edit', params: { id: product.id } }">
               <button class="btn btn-primary mx-2">
@@ -38,6 +38,9 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div>
+
   </div>
 </template>
 <script setup>
@@ -79,15 +82,23 @@ h3 {
   text-shadow: 2px 2px 12px #000000;
 }
 
+.title {
+  background: var(--surface-900); 
+}
+
 .table th {
-  color: #fff;
+  color: var(--surface-900);
   border-radius: 12px;
-  text-shadow: 2px 2px 8px #000000;
 }
 
 .product_name {
   text-transform: uppercase;
   font-weight: 700;
+}
+
+.table__desc {
+  text-align: left;
+  opacity: 0.7;
 }
 
 .fa-coins {

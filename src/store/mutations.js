@@ -7,6 +7,7 @@ export default {
         state.ratings = reviews;
     },
     GET_PRODUCT(state, product) {
+        console.log(product)
         state.product.data = product.data;
         state.product.sum_review = product.sum_review;
         state.product.sum_rating = product.sum_rating;

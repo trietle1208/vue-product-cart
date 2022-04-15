@@ -8,7 +8,7 @@
       <div class="col product__content">
         <div class="product__content--name">{{ product.name }}</div>
         <div class="product__content--price"><i class="pi pi-dollar" style="font-size: 1.5rem; color: #1E90FF"></i>{{ product.price }}</div>
-        <div class="product__content--rating"><Rating v-model="valRating" :cancel="false" :readonly="true" /></div>
+        <div class="product__content--rating"><Rating v-model="product.rating" :cancel="false" :readonly="true" /></div>
         <div class="product__content--decs">{{ product.description }}</div>
         <div class="product__content--btn">
           <div class="btn__addCart"><Button icon="pi pi-shopping-cart" label="Add to Cart" @click="onAddToCart"/></div>
@@ -61,6 +61,7 @@ const product = ref({
   price: "",
   description: "",
   image: "",
+  rating: 0,
   image_url: null,
 })
 
@@ -69,12 +70,18 @@ store.dispatch('getProduct', id).then((res) => {
   product.value = store.state.product.data
   product.value.image = store.state.product.image
   product.value.image_url = store.state.product.image
+  if(store.state.product.sum_rating === 0 || store.state.product.sum_review === 0) {
+    product.value.rating = 0
+  }else{
+    product.value.rating = (store.state.product.sum_rating/store.state.product.sum_review).toFixed()
+  }
 })
-const valRating = (Number(store.state.product.sum_rating)/store.state.product.sum_review).toFixed();
-console.log(store.state.product.sum_rating)
-//Get reviews of product
+
+// Get reviews of product
 store.dispatch('getReviews',id)
 const reviews = computed(() => store.state.ratings)
+
+
 function onToggleReview() {
   displayReview.value = true
 }
@@ -130,6 +137,8 @@ function onAddReview() {
   height: 500px;
   width: 600px;
   object-fit: cover;
+  border-radius: 12px ;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .product__content {
@@ -137,6 +146,7 @@ function onAddReview() {
   border-radius: 12px;
   padding: 16px 20px;
 }
+
 
 .product__content--name {
   font-size: 56px;
